@@ -19,6 +19,7 @@ class App extends React.Component<Props, State> {
     todoinfo: ''
   }
 
+
   onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let {todoinfo, incomplete} = this.state;
@@ -38,6 +39,25 @@ class App extends React.Component<Props, State> {
     this.setState({ todoinfo})
   }
 
+  onCheckHandler = (event: React.FormEvent<HTMLInputElement>, index: number, type: string) => {
+    event.preventDefault();
+    let {completed, incomplete} = this.state;
+    if(type === "incomplete"){
+      let currtodo = incomplete[index]
+      currtodo.status = true
+      completed.push(currtodo)
+      incomplete.splice(index,1)
+      this.setState({completed, incomplete})
+    }
+    else if(type === "complete"){
+      let currtodo = completed[index]
+      currtodo.status = false
+      incomplete.push(currtodo)
+      completed.splice(index,1)
+      this.setState({completed, incomplete})
+    }
+  }
+
   render(){
     let {completed, incomplete, todoinfo} = this.state
     return (
@@ -45,14 +65,14 @@ class App extends React.Component<Props, State> {
         {
           incomplete.map((obj, id) => {
             return(
-              <TodoItem key={id} text={obj.text} status={obj.status} />
+              <TodoItem key={id} todo={obj} check={e => this.onCheckHandler(e, id, "incomplete")} />
             )
           })
         }
         {
           completed.map((obj, id) => {
             return(
-              <TodoItem key={id} text={obj.text} status={obj.status} />
+              <TodoItem key={id} todo={obj} check={e => this.onCheckHandler(e, id, "complete")}/>
             )
           })
         }
