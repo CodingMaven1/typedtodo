@@ -62,24 +62,37 @@ class App extends React.Component<Props, State> {
     let {completed, incomplete, todoinfo} = this.state
     return (
       <div className="App">
-        {
-          incomplete.map((obj, id) => {
-            return(
-              <TodoItem key={id} todo={obj} check={e => this.onCheckHandler(e, id, "incomplete")} />
-            )
-          })
-        }
-        {
-          completed.map((obj, id) => {
-            return(
-              <TodoItem key={id} todo={obj} check={e => this.onCheckHandler(e, id, "complete")}/>
-            )
-          })
-        }
-        <form className="App--Form" onSubmit={this.onSubmitHandler}>
-          <input className="App--Input" onChange={this.onChangeHandler} type="text" placeholder="Describe your todo" value={todoinfo}/>
-          <input className="App--Submit" value="Add" type="submit" />
-        </form>
+        <div className="App--Todo">
+          <div className="App--Heading">
+            <img className="App--HeadingImg" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/756881/laptop.svg" alt="img"/>
+            <h1 className="App--HeadingTitle">To-Do List</h1>
+          </div>
+          <h1 className="App--Title">~Today I need to~</h1>
+          <form className="App--Form" onSubmit={this.onSubmitHandler}>
+            <input className="App--Input" onChange={this.onChangeHandler} type="text" placeholder="Describe your todo" value={todoinfo}/>
+            <input className="App--Submit" value="Add" type="submit" />
+          </form>
+          <div className="App--Div">
+            <h1 className="App--HeadingTitle">Incomplete Tasks</h1>
+            {
+              incomplete.map((obj, id) => {
+                return(
+                  <TodoItem key={id} todo={obj} check={e => this.onCheckHandler(e, id, "incomplete")} />
+                )
+              })
+            }
+          </div>
+          <div className="App--Div">
+            <h1 className="App--HeadingTitle">Completed Tasks</h1>
+            {
+              completed.map((obj, id) => {
+                return(
+                  <TodoItem key={id} todo={obj} check={e => this.onCheckHandler(e, id, "complete")}/>
+                )
+              })
+            }
+          </div>
+        </div>
       </div>
     );
   }

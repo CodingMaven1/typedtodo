@@ -1,0 +1,14 @@
+.TodoItem{
+    display: flex;
+    transition: all 0.5s ease;
+}
+
+.TodoItem--Text{
+    font-size: 1.5rem;
+    padding-left: 1rem;
+}
+
+.TodoItem--Checkbox{
+    cursor: pointer;
+    background-color: hsla(166, 100%, 50%, 0.7);
+}
